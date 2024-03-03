@@ -1,0 +1,5 @@
+package code;
+
+public enum ActionsEnum {
+      REQUESTFOOD, REQUESTMATERIALS, REQUESTENERGY,BUILD1,BUILD2, WAIT,ROOT
+}

@@ -1,0 +1,45 @@
+
+//3- A* 1: ?? ----> can be the same as greedy 1
+@Override
+        public int compare(State o1, State o2) {
+            int distance1 = estimateDistanceToGoal(o1);
+            int distance2 = estimateDistanceToGoal(o2);
+
+            // Compare in ascending order based on the estimated distance to the goal
+            return Integer.compare(distance1, distance2);
+        }
+
+        private int estimateDistanceToGoal(State state) {
+            // Implement your heuristic to estimate the remaining distance to the goal
+            // Combine both prosperity and total money spent in a way that suits your problem
+            int prosperityDistance = Math.max(0, 100 - state.getProsperity());
+            int moneySpentDistance = state.getMoney_spent(); // Adjust this based on your State class
+
+            // You might use a weighted sum or other combination logic
+            // For now, let's use a simple sum for demonstration purposes
+            return prosperityDistance + moneySpentDistance;
+
+        }
+//4- A* 2: ?? ----> can be the same as greedy 2
+    @Override
+    public int compare(State state1, State state2) {
+        double fScore1 = calculateFScore(state1);
+        double fScore2 = calculateFScore(state2);
+
+        return Double.compare(fScore1, fScore2);
+    }
+
+    private double calculateFScore(State state) {
+        double hScore = state.calculateCustomHeuristic();
+        int gScore = state.getMoney_spent();
+
+        return gScore + hScore;
+    }
+}
+
+private int calculateHeuristic(State state) {
+    int goalProsperity = 100;
+    int currentProsperity = state.getProsperity();
+    double percentageAchieved = (double) currentProsperity / goalProsperity;
+    return (int) Math.ceil((1 - percentageAchieved) * goalProsperity);
+}
